@@ -1,0 +1,20 @@
+FROM golang:alpine3.17 as builder
+
+
+COPY fullcycle.go /app/
+COPY go.mod /app/
+RUN go build -o fullcycle
+
+
+FROM alpine:3.17
+
+WORKDIR /app
+
+#COPY --from=builder /app/fullcycle.go /app/
+
+EXPOSE 8080
+
+ENTRYPOINT ["go", "run", "/app/fullcycle.go"]
+
+
+
